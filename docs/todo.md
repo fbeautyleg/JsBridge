@@ -1,21 +1,31 @@
-## [JavaScript] communicate with the native platform
+# Protocol
 
-Bridge.invoke(service_name, service_action, [params], callback_success, callback_error, callback_cancel)
+## [Web] communicate with the native platform
 
-或者
+    Bridge.invoke(service_name, service_action, [params], callback)
 
-Bridge.invoke(service_name, service_action, [params], callback)
+callback
 
-## [Native] communicate with JavaScript
+    function(err, data){}
 
-Bridge.invoke(service_name, service_action, [params], callback_success, callback_error, callback_cancel)
+## [Native] communicate with Web
 
-或者
+    Bridge.invoke(service_name, service_action, [params], callback)
 
-Bridge.invoke(service_name, service_action, [params], callback)
+callback
+
+    class Callback{
+        
+    }
+
+
+# API
 
 ## Callback
 
 1. onSuccess
 2. onError
 3. onCancel
+
+## Promise
+
