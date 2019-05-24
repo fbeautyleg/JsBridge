@@ -1,2 +1,0 @@
-window.Bridge = (function(){
-})()
