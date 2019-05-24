@@ -19,11 +19,11 @@ class Bridge {
         return this.callbacks.length - 1;
     }
 
-    send(service_name, service_action, params = null, callback) {
+    send(serviceName, serviceAction, params = null, callback) {
         let service = {
             ...Bridge._VERSION,
-            name: service_name,
-            action: service_action,
+            name: serviceName,
+            action: serviceAction,
         };
         let callbackId = this.addCallback(callback);
         this.bridge.send(JSON.stringify(service), JSON.stringify(params), JSON.stringify({id: callbackId}));

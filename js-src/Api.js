@@ -4,9 +4,9 @@ class Api {
         this.bridge = bridge;
     }
 
-    send(service_name, service_action, params) {
+    send(serviceName, serviceAction, params) {
         return new Promise((resolve, reject) => {
-            this.bridge.send(service_name, service_action, params, (err, data) => {
+            this.bridge.send(serviceName, serviceAction, params, (err, data) => {
                 if (err) {
                     reject(err);
                 } else {
