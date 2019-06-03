@@ -1,46 +1,51 @@
+const TYPE = require('./Type');
+const Local = require('./Local');
+const Remote = require('./Remote');
+
 class Bridge {
     static get _VERSION() {
         return {
-            _protocol_version: '0.0.1'
+            _bridge_version: "0.0.1"
         };
     };
 
     static get _NAME() {
-        return 'Bridge';
+        return '_WEB_BRIDGE';
     };
 
-    constructor(bridgeInterface) {
-        this.bridge = bridgeInterface;
-        this.callbacks = [];
-    }
-
-    addCallback(callback) {
-        this.callbacks.push(callback);
-        return this.callbacks.length - 1;
-    }
-
-    send(serviceName, serviceAction, params = null, callback) {
-        let service = {
-            ...Bridge._VERSION,
-            name: serviceName,
-            action: serviceAction,
-        };
-        let callbackId = this.addCallback(callback);
-        this.bridge.send(JSON.stringify(service), JSON.stringify(params), JSON.stringify({id: callbackId}));
-    }
-
-    receive(cbk, err, data) {
-        let callback = this.callbacks[cbk.id];
-        delete this.callbacks[cbk.id];
-        if (callback) {
-            callback(err, data);
-        } else {
-            console.error('not found');
+    constructor(native, host, name = Bridge._NAME) {
+        this.local = new Local(this);
+        this.remote = new Remote(this, native);
+        if (host) {
+            this.bind(host, name);
         }
     }
 
-    bind(global, name = Bridge._NAME) {
-        global[name] = this;
+    on(handler) {
+        this.local.on(handler);
+    }
+
+    pushLocalCallback(callback) {
+        return this.local.pushCallback(callback);
+    }
+
+    pushRemoteCallback(callback) {
+        return this.remote.pushCallback(callback);
+    }
+
+    invoke(actionName, payload = null, listener) {
+        let action = {
+            ...Bridge._VERSION,
+            name: actionName,
+            type: TYPE.CALL
+        };
+        this.remote.invoke(action, payload, listener);
+    }
+
+    bind(host, name = Bridge._NAME) {
+        host[name] = (action, payload = null, callback = null) => {
+            this.local.invoke(action, payload, callback);
+        }
     }
 }
 

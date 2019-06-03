@@ -4,13 +4,13 @@ class Api {
         this.bridge = bridge;
     }
 
-    send(serviceName, serviceAction, params) {
+    invoke(actionName, params) {
         return new Promise((resolve, reject) => {
-            this.bridge.send(serviceName, serviceAction, params, (err, data) => {
-                if (err) {
-                    reject(err);
+            this.bridge.invoke(actionName, params, (data) => {
+                if (data.err) {
+                    reject(data.err);
                 } else {
-                    resolve(data);
+                    resolve(data.data);
                 }
             });
         });

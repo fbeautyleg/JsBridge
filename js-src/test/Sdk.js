@@ -7,15 +7,15 @@ class Sdk extends Api {
     }
 
     getUser(params) {
-        return this.send('default', 'getUser', params);
+        return this.invoke('getUser', params);
     }
 
     getLocation() {
-        return this.send('default', 'getLocation');
+        return this.invoke('getLocation');
     }
 
     getXXX() {
-        return this.send('default', 'getXXX');
+        return this.invoke('getXXX');
     }
 }
 

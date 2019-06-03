@@ -1,13 +1,27 @@
 const Host = require('./Host');
 const Bridge = require('../Bridge');
 
-const bridge = new Bridge(Host.window.BridgeInterface);
-bridge.bind(global);
+const bridge = new Bridge(Host.window.BridgeInterface, global);
 
-let cbk = (err, data) => {
-    console.log(`err= ${JSON.stringify(err)}, data = ${JSON.stringify(data)}`);
+let cbk = (data) => {
+    if (data.err) {
+        console.log('发生错误', JSON.stringify(data.err));
+    } else {
+        console.log('没有错误', JSON.stringify(data.data));
+    }
 };
 
-bridge.send('default', 'getUser', {id: 12345678}, cbk);
-bridge.send('default', 'getLocation', null, cbk);
-bridge.send('default', 'getXXX', null, cbk);
+bridge.on((action, payload, callback) => {
+    if (action.name === 'getWebHeight') {
+        let height = 400 + payload.originHeight;
+        setTimeout(function () {
+            console.log(`getWebHeight=${height}`);
+            callback(height);
+        }, 1000);
+    }
+});
+
+bridge.invoke('getUser', {id: 12345678}, cbk);
+bridge.invoke('getLocation', null, cbk);
+bridge.invoke('getXXX', null, cbk);
+bridge.invoke('callback', null, null);
