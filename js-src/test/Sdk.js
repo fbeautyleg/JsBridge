@@ -1,4 +1,4 @@
-const Api = require('../Api');
+const Api = require('../src/Api');
 
 class Sdk extends Api {
 

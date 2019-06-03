@@ -1,5 +1,5 @@
 const Host = require('./Host');
-const Bridge = require('../Bridge');
+const Bridge = require('../src/bridge/Bridge');
 
 const bridge = new Bridge(Host.window.BridgeInterface, global);
 
