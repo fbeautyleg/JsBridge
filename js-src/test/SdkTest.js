@@ -2,8 +2,7 @@ const Host = require('./Host');
 const Bridge = require('../Bridge');
 const Sdk = require('./Sdk');
 
-const bridge = new Bridge(Host.window.BridgeInterface);
-bridge.bind(global);
+const bridge = new Bridge(Host.window.BridgeInterface, global);
 
 let sdk = new Sdk(bridge);
 

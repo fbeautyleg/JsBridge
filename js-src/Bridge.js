@@ -17,7 +17,9 @@ class Bridge {
         this.local = new Local(this);
         this.remote = new Remote(this, native);
         if (host) {
-            this.bind(host, name);
+            host[name] = (action, payload = null, callback = null) => {
+                this.local.invoke(action, payload, callback);
+            }
         }
     }
 
@@ -40,12 +42,6 @@ class Bridge {
             type: TYPE.CALL
         };
         this.remote.invoke(action, payload, listener);
-    }
-
-    bind(host, name = Bridge._NAME) {
-        host[name] = (action, payload = null, callback = null) => {
-            this.local.invoke(action, payload, callback);
-        }
     }
 }
 
