@@ -1,141 +1,46 @@
 <html>
-<head>
-    <style>
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+        />
+    </head>
+    <body>
+        <h1>JsBridge</h1>
+        <div><button id="getNativeUser">getNativeUser</button></div>
+        <ul id="console"></ul>
+        <script src="./bridge/Type.js"></script>
+        <script src="./bridge/Local.js"></script>
+        <script src="./bridge/Remote.js"></script>
+        <script src="./bridge/Bridge.js"></script>
+        <script src="./Api.js"></script>
+        <script src="./Sdk.js"></script>
+        <script>
+            let bridge = new Bridge(window._NATIVE_BRIDGE, window);
+            let sdk = new Sdk(bridge);
 
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        html, body {
-            height: 100%;
-            font-size: 14px;
-        }
-
-        #control {
-        }
-
-        #control button {
-            line-height: 1.5em;
-            margin-top: 0.5em;
-            margin-left: 1em;
-            font-size: 1.2em;
-            padding: 2px;
-        }
-
-        #panel {
-            background: #e4e4e4;
-        }
-
-        #log {
-            margin: 8px;
-            line-height: 1.5em;
-        }
-    </style>
-</head>
-<body>
-<h1 id="title">JsBridge Test</h1>
-
-<div id="content">
-    <div id="control">
-
-        <h2>
-            <a href="page2.html">to page2.html</a>
-        </h2>
-
-        <h2>
-            <a href="#a1">to anchor</a>
-        </h2>
-        <p>
-            <button id="j_showPackageName">showPackageName</button>
-        </p>
-        <p>
-            <button id="j_getUser_succ">getUser success</button>
-        </p>
-        <p>
-            <button id="j_getUser_error">getUser error</button>
-        </p>
-    </div>
-    <div id="panel" name="#a1">
-        <ul id="log">
-
-        </ul>
-    </div>
-</div>
-
-<script src="js-bridge.js"></script>
-<script src="my-sdk.js"></script>
-<script>
-    function _$(id, fn) {
-        var dom = document.getElementById(id);
-        dom.addEventListener('click', fn, false);
-    }
-
-    var count = 0;
-    var ul = document.getElementById('log');
-
-    function log(content) {
-        count++;
-        var li = document.createElement('li');
-        li.appendChild(document.createTextNode("[" + count + "] " + content));
-        ul.insertBefore(li, ul.firstChild);
-    }
-
-    var title = document.getElementById('title');
-
-    function jsFn1() {
-        log("jsFn1()");
-        title.style.background = 'red';
-    }
-
-    function jsFn2(transactInfo, name) {
-        log("jsFn2(" + name + ")");
-        title.style.background = 'blue';
-    }
-
-    function jsFn3(transactInfo) {
-        log("jsFn3:invoke");
-        var color = 'green';
-        title.style.background = color;
-        log("jsFn3:callback");
-        transactInfo.triggerCallback('success', 'background change to ' + color);
-    }
-
-    window.JavaBridge.serverRegister('jsFn4', function (transactInfo, color) {
-        log("jsFn4:" + color);
-        title.style.background = color;
-        log("jsFn4:callback");
-        transactInfo.triggerCallback('success', 'background change to ' + color);
-    });
-
-    _$('j_showPackageName', function (e) {
-        sdk.showPackageName();
-    });
-
-    _$('j_getUser_succ', function (e) {
-        sdk.getUser({
-            "name_prefix": "standard_succ",
-            "success": function (user) {
-                log('sdk.getUser,success:' + user.name);
-            },
-            "fail": function (error) {
-                log('sdk.getUser,fail:' + error.msg);
+            document.getElementById("getNativeUser").addEventListener(
+                "click",
+                function() {
+                    log("发起支付");
+                    sdk.pay({ order: "a12345678", flag: `t${Date.now()}` })
+                        .then(data => {
+                            log(`支付成功：data=${JSON.stringify(data)}`);
+                        })
+                        .catch(err => {
+                            log(`支付失败:${JSON.stringify(err)}`);
+                        });
+                },
+                false
+            );
+            function log(content) {
+                let li = document.createElement("li");
+                let text = document.createTextNode(content);
+                li.appendChild(text);
+                document.getElementById("console").appendChild(li);
             }
-        })
-    });
-
-    _$('j_getUser_error', function (e) {
-        sdk.getUser({
-            "name_prefix": "standard_error",
-            "success": function (user) {
-                log('sdk.getUser,success:' + user.name);
-            },
-            "fail": function (error) {
-                log('sdk.getUser,fail:' + error.msg);
-            }
-        })
-    });
-
-</script>
-</body>
+        </script>
+    </body>
 </html>

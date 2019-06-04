@@ -16,34 +16,18 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/eval"
+                android:id="@+id/get_web_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="eval" />
+                android:text="getWebTitle"
+                android:textAllCaps="false" />
 
             <Button
-                android:id="@+id/invoke_1"
+                android:id="@+id/set_web_bg_red"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="invoke_1" />
-
-            <Button
-                android:id="@+id/invoke_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="invoke_2" />
-
-            <Button
-                android:id="@+id/invoke_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="invoke_3" />
-
-            <Button
-                android:id="@+id/invoke_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="invoke_4" />
+                android:text="setWebBgRed"
+                android:textAllCaps="false" />
         </LinearLayout>
     </ScrollView>
 
