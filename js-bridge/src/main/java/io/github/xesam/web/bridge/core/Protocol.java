@@ -3,8 +3,10 @@ package io.github.xesam.web.bridge.core;
 public final class Protocol {
 
     public interface Native {
-        String NATIVE_BRIDGE_NAME = "_NATIVE_BRIDGE";
         String VERSION = "0.0.1";
+        
+        String NATIVE_BRIDGE_NAME = "_NATIVE_BRIDGE";
+        String NATIVE_BRIDGE_VERSION = "_version";
 
         int TYPE_CALL = 0;
         int TYPE_CALLBACK = 1;
@@ -21,7 +23,7 @@ public final class Protocol {
 
     public interface Web {
         String WEB_BRIDGE_NAME = "_WEB_BRIDGE";
-        String BRIDGE_VERSION = "_bridge_version";
+        String WEB_BRIDGE_VERSION = "_version";
 
         int TYPE_CALL = Native.TYPE_CALL;
         int TYPE_CALLBACK = Native.TYPE_CALLBACK;
