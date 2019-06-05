@@ -28,6 +28,13 @@
                 android:layout_height="wrap_content"
                 android:text="setWebBgRed"
                 android:textAllCaps="false" />
+
+            <EditText
+                android:id="@+id/bg_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="background color"
+                android:text="red" />
         </LinearLayout>
     </ScrollView>
 

@@ -6,10 +6,22 @@
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
+        <style>
+            button {
+                padding: 8px 12px;
+                margin-top: 12px;
+            }
+            li {
+                word-break: break-all;
+            }
+        </style>
     </head>
     <body>
         <h1>JsBridge</h1>
-        <div><button id="getNativeUser">getNativeUser</button></div>
+        <div>
+            <button id="getNativeUserSuccess">getNativeUser success</button>
+        </div>
+        <div><button id="getNativeUserError">getNativeUser error</button></div>
         <ul id="console"></ul>
         <script src="./bridge/Type.js"></script>
         <script src="./bridge/Local.js"></script>
@@ -17,20 +29,53 @@
         <script src="./bridge/Bridge.js"></script>
         <script src="./Api.js"></script>
         <script src="./Sdk.js"></script>
+        <script src="./vconsole.min.js"></script>
         <script>
+            let vConsole = new VConsole();
             let bridge = new Bridge(window._NATIVE_BRIDGE, window);
+            bridge.on((action, payload, innerCbk) => {
+                if (action.name === "getWebTitle") {
+                    innerCbk({ err: null, data: { title: "this is title" } });
+                } else if (action.name === "setWebBg") {
+                    document.body.style.backgroundColor =
+                        payload.backgroundColor;
+                }
+            });
+
             let sdk = new Sdk(bridge);
 
-            document.getElementById("getNativeUser").addEventListener(
+            document.getElementById("getNativeUserSuccess").addEventListener(
                 "click",
                 function() {
-                    log("发起支付");
-                    sdk.pay({ order: "a12345678", flag: `t${Date.now()}` })
+                    log("getNativeUser");
+                    sdk.getNativeUser({ userId: "a12345678" })
                         .then(data => {
-                            log(`支付成功：data=${JSON.stringify(data)}`);
+                            log(
+                                `getNativeUser：success:data=${JSON.stringify(
+                                    data
+                                )}`
+                            );
                         })
                         .catch(err => {
-                            log(`支付失败:${JSON.stringify(err)}`);
+                            log(`getNativeUser:error:${JSON.stringify(err)}`);
+                        });
+                },
+                false
+            );
+            document.getElementById("getNativeUserError").addEventListener(
+                "click",
+                function() {
+                    log("getNativeUser");
+                    sdk.getNativeUser({ userId: "no_id" })
+                        .then(data => {
+                            log(
+                                `getNativeUser：success:data=${JSON.stringify(
+                                    data
+                                )}`
+                            );
+                        })
+                        .catch(err => {
+                            log(`getNativeUser:error:${JSON.stringify(err)}`);
                         });
                 },
                 false

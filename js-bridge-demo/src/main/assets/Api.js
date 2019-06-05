@@ -1,12 +1,12 @@
 class Api {
-
     constructor(bridge) {
         this.bridge = bridge;
     }
 
     invoke(actionName, params) {
         return new Promise((resolve, reject) => {
-            this.bridge.invoke(actionName, params, (data) => {
+            this.bridge.invoke(actionName, params, data => {
+                console.log(data);
                 if (data.err) {
                     reject(data.err);
                 } else {
@@ -16,4 +16,3 @@ class Api {
         });
     }
 }
-

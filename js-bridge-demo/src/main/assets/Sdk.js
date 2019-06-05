@@ -3,7 +3,7 @@ class Sdk extends Api {
         super(bridge);
     }
 
-    pay(params) {
-        return this.invoke("_PAY", params);
+    getNativeUser(params) {
+        return this.invoke("getNativeUser", params);
     }
 }

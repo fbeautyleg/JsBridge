@@ -1,4 +1,3 @@
-
 class Remote {
     constructor(bridge, native) {
         this.bridge = bridge;
@@ -9,9 +8,10 @@ class Remote {
         let cbk = null;
         if (action.type === TYPE.CALL) {
             let cbkName = this.bridge.pushLocalCallback(callback);
-            cbk = {name: cbkName};
+            cbk = { name: cbkName };
         }
 
+        console.log(action, payload, cbk);
         this.native.invoke(
             JSON.stringify(action),
             JSON.stringify(payload),
@@ -24,7 +24,7 @@ class Remote {
             type: TYPE.CALLBACK,
             name: callback && callback.name
         };
-        return (payload) => {
+        return payload => {
             this.invoke(action, payload);
         };
     }
