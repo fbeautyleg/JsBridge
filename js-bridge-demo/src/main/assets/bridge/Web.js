@@ -7,7 +7,7 @@ class Web {
         };
     }
 
-    on(handler) {
+    registerHandler(handler) {
         this.handler = handler;
     }
 

@@ -17,8 +17,8 @@ class Bridge {
         };
     }
 
-    on(handler) {
-        this.web.on(handler);
+    registerHandler(handler) {
+        this.web.registerHandler(handler);
     }
 
     pushWebCallback(callback) {

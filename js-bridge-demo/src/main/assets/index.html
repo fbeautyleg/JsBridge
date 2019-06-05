@@ -33,7 +33,7 @@
         <script>
             let vConsole = new VConsole();
             let bridge = new Bridge(window._NATIVE_BRIDGE, window);
-            bridge.on((action, payload, nativeCallback) => {
+            bridge.registerHandler((action, payload, nativeCallback) => {
                 if (action.name === "getWebTitle") {
                     innerCbk({ err: null, data: { title: "this is title" } });
                 } else if (action.name === "setWebBg") {
