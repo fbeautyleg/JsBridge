@@ -22,7 +22,7 @@ public class Action implements Marshallable {
 
     public static Action from(Listener listener) {
         Action action = new Action(Protocol.Web.TYPE_CALLBACK);
-        action.version = Protocol.Native.VERSION;
+        action.version = Protocol.VERSION;
         action.name = listener.getName();
         return action;
     }
@@ -35,10 +35,10 @@ public class Action implements Marshallable {
         this.type = type;
     }
 
-    public Action(int type, String name) {
+    protected Action(int type, String name, String version) {
         this(type);
         this.name = name;
-        this.version = Protocol.Native.VERSION;
+        this.version = version;
     }
 
     public int getType() {

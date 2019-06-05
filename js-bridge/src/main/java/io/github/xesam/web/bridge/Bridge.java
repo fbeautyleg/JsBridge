@@ -9,8 +9,8 @@ import io.github.xesam.web.bridge._native.Native;
 import io.github.xesam.web.bridge._native.NativeCallback;
 import io.github.xesam.web.bridge._native.NativeHandler;
 import io.github.xesam.web.bridge._web.Web;
+import io.github.xesam.web.bridge._web.WebCall;
 import io.github.xesam.web.bridge._web.WebCallback;
-import io.github.xesam.web.bridge.core.Action;
 import io.github.xesam.web.bridge.core.Listener;
 import io.github.xesam.web.bridge.core.Param;
 import io.github.xesam.web.bridge.core.Protocol;
@@ -54,8 +54,8 @@ public class Bridge {
         mNative.registerHandler(handler);
     }
 
-    public void invoke(Action action, Param param, NativeCallback callback) {
-        this.mWeb.invokeCall(action, param, callback);
+    public void invoke(WebCall call, Param param, NativeCallback callback) {
+        this.mWeb.invokeCall(call, param, callback);
     }
 
     public void destroy() {

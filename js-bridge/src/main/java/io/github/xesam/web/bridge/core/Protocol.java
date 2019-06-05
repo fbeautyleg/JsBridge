@@ -2,9 +2,10 @@ package io.github.xesam.web.bridge.core;
 
 public final class Protocol {
 
+    public static final String VERSION = "0.0.1";
+
     public interface Native {
-        String VERSION = "0.0.1";
-        
+
         String NATIVE_BRIDGE_NAME = "_NATIVE_BRIDGE";
         String NATIVE_BRIDGE_VERSION = "_version";
 
