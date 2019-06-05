@@ -21,6 +21,8 @@ public final class Protocol {
 
         String RESPONSE_ERROR = "err";
         String RESPONSE_DATA = "data";
+
+        String LISTENER_NAME = "name";
     }
 
     public interface Web {
@@ -39,5 +41,7 @@ public final class Protocol {
 
         String RESPONSE_ERROR = Native.RESPONSE_ERROR;
         String RESPONSE_DATA = Native.RESPONSE_DATA;
+
+        String LISTENER_NAME = Native.LISTENER_NAME;
     }
 }

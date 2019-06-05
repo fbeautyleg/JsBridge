@@ -7,14 +7,11 @@ import io.github.xesam.web.bridge.util.JsonUtils;
 
 public class Listener implements Marshallable {
 
-    private static final String LISTENER_NAME = "name";
-    private static final String WEB_CALLBACK_NAME = "name";
-
     public static Listener parseNative(String content) {
         try {
             Listener listener = new Listener();
             JSONObject jsonObject = new JSONObject(content);
-            listener.name = JsonUtils.getString(jsonObject, LISTENER_NAME, "");
+            listener.name = JsonUtils.getString(jsonObject, Protocol.Native.LISTENER_NAME, "");
             return listener;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -47,7 +44,7 @@ public class Listener implements Marshallable {
     public String marshalling() {
         JSONObject rs = new JSONObject();
         try {
-            rs.put(WEB_CALLBACK_NAME, name);
+            rs.put(Protocol.Web.LISTENER_NAME, name);
         } catch (JSONException e) {
             e.printStackTrace();
         }
