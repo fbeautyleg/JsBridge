@@ -38,6 +38,6 @@ public final class DefaultWebHost implements WebHost {
 
     @Override
     public void evaluateJavascript(Marshallable action, Marshallable payload, Marshallable listener) {
-        this.evaluateJavascript(action.marshalling(), payload.marshalling(), listener == null ? null : listener.marshalling());
+        this.evaluateJavascript(action.marshalling(), payload == null ? null : payload.marshalling(), listener == null ? null : listener.marshalling());
     }
 }
