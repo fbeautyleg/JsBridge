@@ -1,7 +1,6 @@
 package io.github.xesam.web.bridge;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.webkit.WebView;
 
 import io.github.xesam.web.bridge._native.DefaultWebHost;
@@ -35,18 +34,14 @@ public class Bridge {
 
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface", "JavascriptInterface"})
     private void injectNativeBridge(WebView webView) {
-//        if (!webView.getSettings().getJavaScriptEnabled()) {
-//            Log.e("JsBridge", "javascript is disabled");
-//            return;
-//        }
         webView.addJavascriptInterface(mNative, mNativeBridgeName);
     }
 
-    public Listener pushLocalCallback(NativeCallback listener) {
+    public Listener pushNativeCallback(NativeCallback listener) {
         return mNative.pushCallback(listener);
     }
 
-    public WebCallback pushRemoteCallback(Listener listener) {
+    public WebCallback pushWebCallback(Listener listener) {
         return mWeb.pushCallback(listener);
     }
 

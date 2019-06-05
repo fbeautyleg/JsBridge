@@ -14,19 +14,22 @@ public class Native implements Invoker {
     private Bridge mBridge;
 
     private NativeHandlerDispatcher mNativeHandlerDispatcher;
+    private NativeQueen mNativeQueen;
 
     public Native(Bridge bridge) {
         this.mBridge = bridge;
+        this.mNativeQueen = new NativeQueen(mBridge);
         this.mNativeHandlerDispatcher = new NativeHandlerDispatcher(this.mBridge);
     }
 
     @Override
     public void destroy() {
-
+        mNativeQueen.clear();
+        mNativeHandlerDispatcher.clear();
     }
 
-    public Listener pushCallback(NativeCallback listener) {
-        return mNativeHandlerDispatcher.registerCallback(listener);
+    public Listener pushCallback(NativeCallback callback) {
+        return mNativeQueen.push(callback);
     }
 
     public void registerHandler(NativeHandler handler) {
@@ -36,13 +39,13 @@ public class Native implements Invoker {
     @JavascriptInterface
     public final void invoke(String actionInfo, String payloadInfo, String listenerInfo) {
         Action action = Action.parse(actionInfo);
-        Listener listener = Listener.parse(listenerInfo);
         if (action.getType() == Protocol.Native.TYPE_CALLBACK) {
             Response response = Response.parse(payloadInfo);
-            mNativeHandlerDispatcher.dispatchCallback(action, response);
+            mNativeQueen.dispatch(action, response);
         } else {
             Param param = Param.parse(payloadInfo);
-            mNativeHandlerDispatcher.dispatchCall(action, param, listener);
+            Listener listener = Listener.parse(listenerInfo);
+            mNativeHandlerDispatcher.dispatch(action, param, listener);
         }
     }
 }

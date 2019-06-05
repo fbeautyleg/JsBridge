@@ -33,7 +33,7 @@ public class Web implements Invoker {
     }
 
     public void invokeCall(Action action, Param param, NativeCallback callback) {
-        Listener nativeListener = mBridge.pushLocalCallback(callback);
+        Listener nativeListener = mBridge.pushNativeCallback(callback);
         mWebHost.evaluateJavascript(action, param, nativeListener);
     }
 }
