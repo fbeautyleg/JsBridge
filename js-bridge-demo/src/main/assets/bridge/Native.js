@@ -14,7 +14,7 @@ class Native {
 
     invokeCall(action, payload, webCallback) {
         let cbkName = this.bridge.pushWebCallback(webCallback);
-        let listener = { name: cbkName };
+        let listener = { [NATIVE.LISTENER_NAME]: cbkName };
         this._invoke(action, payload, listener);
     }
 
@@ -25,7 +25,7 @@ class Native {
     pushCallback(listener) {
         let action = {
             [NATIVE.BRIDGE_VERSION]: VERSION,
-            [NATIVE.ACTION_NAME]: listener && listener.name,
+            [NATIVE.ACTION_NAME]: listener && listener[NATIVE.LISTENER_NAME],
             [NATIVE.ACTION_TYPE]: NATIVE.TYPE_CALLBACK
         };
         return payload => {
