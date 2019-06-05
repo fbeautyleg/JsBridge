@@ -1,15 +1,5 @@
 class Bridge {
-    static get _VERSION() {
-        return {
-            _version: "0.0.1"
-        };
-    }
-
-    static get _NAME() {
-        return "_WEB_BRIDGE";
-    }
-
-    constructor(native, host, name = Bridge._NAME) {
+    constructor(native, host, name = WEB.BRIDGE_NAME) {
         this.web = new Web(this);
         this.native = new Native(this, native);
         host[name] = (action, payload = null, callback = null) => {
@@ -25,16 +15,16 @@ class Bridge {
         return this.web.pushCallback(callback);
     }
 
-    pushNativeCallback(callback) {
-        return this.native.pushCallback(callback);
+    pushNativeCallback(listener) {
+        return this.native.pushCallback(listener);
     }
 
-    invoke(actionName, payload = null, listener) {
+    invoke(actionName, payload = null, webCallback) {
         let action = {
-            ...Bridge._VERSION,
-            name: actionName,
-            type: TYPE.CALL
+            [NATIVE.BRIDGE_VERSION]: VERSION,
+            [NATIVE.ACTION_NAME]: actionName,
+            [NATIVE.ACTION_TYPE]: NATIVE.TYPE_CALL
         };
-        this.native.invokeCall(action, payload, listener);
+        this.native.invokeCall(action, payload, webCallback);
     }
 }

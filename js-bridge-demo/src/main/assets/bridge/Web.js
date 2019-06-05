@@ -1,7 +1,7 @@
 class Web {
     constructor(bridge) {
         this.bridge = bridge;
-        this.callbacks = [];
+        this.callbacks = {};
         this.handler = () => {
             console.log("web handle");
         };
@@ -12,7 +12,7 @@ class Web {
     }
 
     invoke(action, payload = null, listener = null) {
-        if (action.type === TYPE.CALL) {
+        if (action[WEB.ACTION_TYPE] === WEB.TYPE_CALL) {
             let nativeCallback = this.bridge.pushNativeCallback(listener);
             this.handler(action, payload, nativeCallback);
         } else {
@@ -26,13 +26,15 @@ class Web {
     }
 
     pushCallback(callback) {
-        this.callbacks.push(callback);
-        return `${this.callbacks.length - 1}`;
+        let id = `${Date.now()}#${Math.floor(Math.random() * 1000)}`;
+        this.callbacks[id] = callback;
+        return id;
     }
 
     popCallback(action = {}) {
-        let callback = this.callbacks[action.name];
-        delete this.callbacks[action.name];
+        let id = action[WEB.ACTION_NAME];
+        let callback = this.callbacks[id];
+        delete this.callbacks[id];
         return callback;
     }
 }

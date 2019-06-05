@@ -23,7 +23,7 @@
         </div>
         <div><button id="getNativeUserError">getNativeUser error</button></div>
         <ul id="console"></ul>
-        <script src="./bridge/Type.js"></script>
+        <script src="./bridge/Protocol.js"></script>
         <script src="./bridge/Web.js"></script>
         <script src="./bridge/Native.js"></script>
         <script src="./bridge/Bridge.js"></script>
@@ -32,10 +32,10 @@
         <script src="./vconsole.min.js"></script>
         <script>
             let vConsole = new VConsole();
-            let bridge = new Bridge(window._NATIVE_BRIDGE, window);
+            let bridge = new Bridge(window[NATIVE.BRIDGE_NAME], window);
             bridge.registerHandler((action, payload, nativeCallback) => {
                 if (action.name === "getWebTitle") {
-                    innerCbk({ err: null, data: { title: "this is title" } });
+                    nativeCallback({ err: null, data: { title: "this is title" } });
                 } else if (action.name === "setWebBg") {
                     document.body.style.backgroundColor =
                         payload.backgroundColor;
