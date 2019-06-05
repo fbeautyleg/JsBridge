@@ -38,13 +38,13 @@ public class Native implements Invoker {
 
     @JavascriptInterface
     public final void invoke(String actionInfo, String payloadInfo, String listenerInfo) {
-        Action action = Action.parse(actionInfo);
+        Action action = Action.parseNative(actionInfo);
         if (action.getType() == Protocol.Native.TYPE_CALLBACK) {
-            Response response = Response.parse(payloadInfo);
+            Response response = Response.parseNative(payloadInfo);
             mNativeQueen.dispatch(action, response);
         } else {
-            Param param = Param.parse(payloadInfo);
-            Listener listener = Listener.parse(listenerInfo);
+            Param param = Param.parseNative(payloadInfo);
+            Listener listener = Listener.parseNative(listenerInfo);
             mNativeHandlerDispatcher.dispatch(action, param, listener);
         }
     }

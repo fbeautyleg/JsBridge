@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Param implements Marshallable {
-    public static Param parse(String content) {
+    public static Param parseNative(String content) {
         Param param = new Param();
         try {
             param.content = new JSONObject(content);

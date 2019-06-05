@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class Response implements Marshallable {
 
-    public static Response parse(String content) {
+    public static Response parseNative(String content) {
         try {
             Response response = new Response();
             JSONObject jsonObject = new JSONObject(content);

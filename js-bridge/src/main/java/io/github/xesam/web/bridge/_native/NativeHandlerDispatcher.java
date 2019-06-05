@@ -9,7 +9,7 @@ import io.github.xesam.web.bridge.core.Action;
 import io.github.xesam.web.bridge.core.Listener;
 import io.github.xesam.web.bridge.core.Param;
 
-public class NativeHandlerDispatcher {
+class NativeHandlerDispatcher {
 
     private Bridge mBridge;
     private Map<String, NativeHandler> mNativeHandlers = new HashMap<>();

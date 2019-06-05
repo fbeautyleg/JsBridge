@@ -7,6 +7,7 @@ import io.github.xesam.web.bridge.core.Action;
 import io.github.xesam.web.bridge.core.Invoker;
 import io.github.xesam.web.bridge.core.Listener;
 import io.github.xesam.web.bridge.core.Param;
+import io.github.xesam.web.bridge.core.Protocol;
 import io.github.xesam.web.bridge.core.Response;
 
 public class Web implements Invoker {
@@ -19,8 +20,12 @@ public class Web implements Invoker {
         mWebHost = host;
     }
 
+    private Action getWebAction(Listener listener) {
+        return new Action(Protocol.Web.TYPE_CALLBACK, listener.getName(), Protocol.VERSION);
+    }
+
     public WebCallback pushCallback(Listener listener) {
-        return new WebCallback(this, Action.from(listener));
+        return new WebCallback(this, getWebAction(listener));
     }
 
     @Override
@@ -28,7 +33,7 @@ public class Web implements Invoker {
 
     }
 
-    public void invokeCallback(Action action, Response response) {
+    void invokeCallback(Action action, Response response) {
         mWebHost.evaluateJavascript(action, response, null);
     }
 

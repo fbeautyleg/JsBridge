@@ -7,7 +7,7 @@ import io.github.xesam.web.bridge.util.JsonUtils;
 
 public class Action implements Marshallable {
 
-    public static Action parse(String content) {
+    public static Action parseNative(String content) {
         Action action = null;
         try {
             JSONObject jsonObject = new JSONObject(content);
@@ -20,13 +20,6 @@ public class Action implements Marshallable {
         return action;
     }
 
-    public static Action from(Listener listener) {
-        Action action = new Action(Protocol.Web.TYPE_CALLBACK);
-        action.version = Protocol.VERSION;
-        action.name = listener.getName();
-        return action;
-    }
-
     private final int type;
     private String version;
     private String name;
@@ -35,7 +28,7 @@ public class Action implements Marshallable {
         this.type = type;
     }
 
-    protected Action(int type, String name, String version) {
+    public Action(int type, String name, String version) {
         this(type);
         this.name = name;
         this.version = version;
