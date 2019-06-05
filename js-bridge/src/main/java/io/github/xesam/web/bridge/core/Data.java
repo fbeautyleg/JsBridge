@@ -8,13 +8,14 @@ import io.github.xesam.web.bridge.util.JsonUtils;
 public class Data implements Deliverable {
 
     public static Data from(JSONObject jsonObject) {
-        Data item = new Data();
         try {
-            item.data = JsonUtils.getObject(jsonObject, "data", null);
+            Data data = new Data();
+            data.data = JsonUtils.getObject(jsonObject, Protocol.Native.RESPONSE_DATA, null);
+            return data;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return item;
+        return null;
     }
 
     private JSONObject data;

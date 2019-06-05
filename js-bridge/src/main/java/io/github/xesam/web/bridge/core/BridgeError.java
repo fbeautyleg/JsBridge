@@ -8,14 +8,15 @@ import io.github.xesam.web.bridge.util.JsonUtils;
 public class BridgeError implements Deliverable {
 
     public static BridgeError from(JSONObject jsonObject) {
-        BridgeError error = new BridgeError();
         try {
+            BridgeError error = new BridgeError();
             error.status = JsonUtils.getString(jsonObject, Protocol.Native.ERROR_STATUS, "");
             error.message = JsonUtils.getString(jsonObject, Protocol.Native.ERROR_MESSAGE, null);
+            return error;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return error;
+        return null;
     }
 
     private String status;

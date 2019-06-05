@@ -41,7 +41,7 @@ public class NativeHandlerDispatcher {
     }
 
     public void dispatchCallback(Action action, Response response) {
-        NativeCallback callback = mCallbacks.get(action.getName());
+        NativeCallback callback = mCallbacks.remove(action.getName());
         if (callback != null) {
             callback.call(response);
         }

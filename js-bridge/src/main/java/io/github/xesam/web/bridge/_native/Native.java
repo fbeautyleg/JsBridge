@@ -37,7 +37,7 @@ public class Native implements Invoker {
     public final void invoke(String actionInfo, String payloadInfo, String listenerInfo) {
         Action action = Action.parse(actionInfo);
         Listener listener = Listener.parse(listenerInfo);
-        if (action.getType() == Protocol.Web.TYPE_CALLBACK) {
+        if (action.getType() == Protocol.Native.TYPE_CALLBACK) {
             Response response = Response.parse(payloadInfo);
             mNativeHandlerDispatcher.dispatchCallback(action, response);
         } else {

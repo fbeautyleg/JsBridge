@@ -6,18 +6,20 @@ import org.json.JSONObject;
 public class Response implements Marshallable {
 
     public static Response parse(String content) {
-        Response response = new Response();
         try {
+            Response response = new Response();
             JSONObject jsonObject = new JSONObject(content);
             if (jsonObject.has(Protocol.Native.RESPONSE_ERROR)) {
                 response.error = BridgeError.from(jsonObject);
-            } else if (jsonObject.has(Protocol.Native.RESPONSE_DATA)) {
+            }
+            if (jsonObject.has(Protocol.Native.RESPONSE_DATA)) {
                 response.data = Data.from(jsonObject);
             }
+            return response;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return response;
+        return null;
     }
 
     private BridgeError error;
@@ -45,7 +47,8 @@ public class Response implements Marshallable {
         try {
             if (error != null) {
                 jo.put(Protocol.Web.RESPONSE_ERROR, error.toJSONObject());
-            } else if (data != null) {
+            }
+            if (data != null) {
                 jo.put(Protocol.Web.RESPONSE_DATA, data.toJSONObject());
             }
         } catch (JSONException e) {

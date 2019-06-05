@@ -35,10 +35,10 @@ public class Bridge {
 
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface", "JavascriptInterface"})
     private void injectNativeBridge(WebView webView) {
-        if (!webView.getSettings().getJavaScriptEnabled()) {
-            Log.e("JsBridge", "javascript is disabled");
-            return;
-        }
+//        if (!webView.getSettings().getJavaScriptEnabled()) {
+//            Log.e("JsBridge", "javascript is disabled");
+//            return;
+//        }
         webView.addJavascriptInterface(mNative, mNativeBridgeName);
     }
 
