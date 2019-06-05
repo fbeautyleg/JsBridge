@@ -26,15 +26,15 @@ class Web {
     }
 
     pushCallback(callback) {
-        let id = `${Date.now()}#${Math.floor(Math.random() * 1000)}`;
-        this.callbacks[id] = callback;
-        return id;
+        let name = `${Date.now()}#${Math.floor(Math.random() * 1000)}`;
+        this.callbacks[name] = callback;
+        return name;
     }
 
     popCallback(action = {}) {
-        let id = action[WEB.ACTION_NAME];
-        let callback = this.callbacks[id];
-        delete this.callbacks[id];
+        let name = action[WEB.ACTION_NAME];
+        let callback = this.callbacks[name];
+        delete this.callbacks[name];
         return callback;
     }
 }
