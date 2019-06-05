@@ -6,11 +6,12 @@ public final class Protocol {
 
     public interface Native {
 
-        String NATIVE_BRIDGE_NAME = "_NATIVE_BRIDGE";
-        String NATIVE_BRIDGE_VERSION = "_version";
+        String BRIDGE_NAME = "_NATIVE_BRIDGE";
 
         int TYPE_CALL = 0;
         int TYPE_CALLBACK = 1;
+
+        String BRIDGE_VERSION = "_version";
 
         String ACTION_TYPE = "type";
         String ACTION_NAME = "name";
@@ -23,11 +24,12 @@ public final class Protocol {
     }
 
     public interface Web {
-        String WEB_BRIDGE_NAME = "_WEB_BRIDGE";
-        String WEB_BRIDGE_VERSION = "_version";
+        String BRIDGE_NAME = "_WEB_BRIDGE";
 
         int TYPE_CALL = Native.TYPE_CALL;
         int TYPE_CALLBACK = Native.TYPE_CALLBACK;
+
+        String BRIDGE_VERSION = Native.BRIDGE_VERSION;
 
         String ACTION_TYPE = Native.ACTION_TYPE;
         String ACTION_NAME = Native.ACTION_NAME;

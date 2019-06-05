@@ -12,7 +12,7 @@ public class Action implements Marshallable {
         try {
             JSONObject jsonObject = new JSONObject(content);
             action = new Action(JsonUtils.getInt(jsonObject, Protocol.Native.ACTION_TYPE, Protocol.Native.TYPE_CALL));
-            action.version = JsonUtils.getString(jsonObject, Protocol.Native.NATIVE_BRIDGE_VERSION, null);
+            action.version = JsonUtils.getString(jsonObject, Protocol.Native.BRIDGE_VERSION, null);
             action.name = JsonUtils.getString(jsonObject, Protocol.Native.ACTION_NAME, null);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -52,7 +52,7 @@ public class Action implements Marshallable {
         try {
             rs.put(Protocol.Web.ACTION_TYPE, type);
             rs.put(Protocol.Web.ACTION_NAME, name);
-            rs.put(Protocol.Web.WEB_BRIDGE_VERSION, version);
+            rs.put(Protocol.Web.BRIDGE_VERSION, version);
         } catch (JSONException e) {
             e.printStackTrace();
         }

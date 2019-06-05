@@ -21,7 +21,7 @@ public class Bridge {
     private final Web mWeb;
 
     public Bridge(WebView webView) {
-        this(webView, Protocol.Native.NATIVE_BRIDGE_NAME, Protocol.Web.WEB_BRIDGE_NAME);
+        this(webView, Protocol.Native.BRIDGE_NAME, Protocol.Web.BRIDGE_NAME);
     }
 
     public Bridge(WebView webView, String nativeBridgeName, String webBridgeName) {
