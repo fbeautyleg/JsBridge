@@ -10,23 +10,23 @@ class Bridge {
     }
 
     constructor(native, host, name = Bridge._NAME) {
-        this.local = new Local(this);
-        this.remote = new Remote(this, native);
+        this.web = new Web(this);
+        this.native = new Native(this, native);
         host[name] = (action, payload = null, callback = null) => {
-            this.local.invoke(action, payload, callback);
+            this.web.invoke(action, payload, callback);
         };
     }
 
     on(handler) {
-        this.local.on(handler);
+        this.web.on(handler);
     }
 
-    pushLocalCallback(callback) {
-        return this.local.pushCallback(callback);
+    pushWebCallback(callback) {
+        return this.web.pushCallback(callback);
     }
 
-    pushRemoteCallback(callback) {
-        return this.remote.pushCallback(callback);
+    pushNativeCallback(callback) {
+        return this.native.pushCallback(callback);
     }
 
     invoke(actionName, payload = null, listener) {
@@ -35,6 +35,6 @@ class Bridge {
             name: actionName,
             type: TYPE.CALL
         };
-        this.remote.invoke(action, payload, listener);
+        this.native.invokeCall(action, payload, listener);
     }
 }

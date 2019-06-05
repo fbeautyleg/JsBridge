@@ -24,8 +24,8 @@
         <div><button id="getNativeUserError">getNativeUser error</button></div>
         <ul id="console"></ul>
         <script src="./bridge/Type.js"></script>
-        <script src="./bridge/Local.js"></script>
-        <script src="./bridge/Remote.js"></script>
+        <script src="./bridge/Web.js"></script>
+        <script src="./bridge/Native.js"></script>
         <script src="./bridge/Bridge.js"></script>
         <script src="./Api.js"></script>
         <script src="./Sdk.js"></script>
@@ -33,7 +33,7 @@
         <script>
             let vConsole = new VConsole();
             let bridge = new Bridge(window._NATIVE_BRIDGE, window);
-            bridge.on((action, payload, innerCbk) => {
+            bridge.on((action, payload, nativeCallback) => {
                 if (action.name === "getWebTitle") {
                     innerCbk({ err: null, data: { title: "this is title" } });
                 } else if (action.name === "setWebBg") {

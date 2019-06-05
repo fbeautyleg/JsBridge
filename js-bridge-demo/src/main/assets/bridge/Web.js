@@ -1,11 +1,9 @@
-
-class Local {
-
+class Web {
     constructor(bridge) {
         this.bridge = bridge;
         this.callbacks = [];
         this.handler = () => {
-            console.log('local handle');
+            console.log("web handle");
         };
     }
 
@@ -13,23 +11,23 @@ class Local {
         this.handler = handler;
     }
 
-    invoke(action, payload = null, callback = null) {
+    invoke(action, payload = null, listener = null) {
         if (action.type === TYPE.CALL) {
-            let innerCbk = this.bridge.pushRemoteCallback(callback);
-            this.handler(action, payload, innerCbk);
+            let nativeCallback = this.bridge.pushNativeCallback(listener);
+            this.handler(action, payload, nativeCallback);
         } else {
             let callback = this.popCallback(action);
             if (callback) {
                 callback(payload);
             } else {
-                console.error('local not found');
+                console.error("local not found");
             }
         }
     }
 
     pushCallback(callback) {
         this.callbacks.push(callback);
-        return this.callbacks.length - 1;
+        return `${this.callbacks.length - 1}`;
     }
 
     popCallback(action = {}) {
@@ -38,4 +36,3 @@ class Local {
         return callback;
     }
 }
-
