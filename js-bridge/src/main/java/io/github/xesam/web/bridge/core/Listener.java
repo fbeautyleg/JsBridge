@@ -10,15 +10,16 @@ public class Listener implements Marshallable {
     private static final String LISTENER_NAME = "name";
     private static final String WEB_CALLBACK_NAME = "name";
 
-    public static Listener parse(String content) {
-        Listener listener = new Listener();
+    public static Listener parseNative(String content) {
         try {
+            Listener listener = new Listener();
             JSONObject jsonObject = new JSONObject(content);
             listener.name = JsonUtils.getString(jsonObject, LISTENER_NAME, "");
+            return listener;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return listener;
+        return null;
     }
 
     private String name;
